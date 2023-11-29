@@ -1,4 +1,4 @@
-package src.JackHodge.GPTApi;
+package com.JackHodge.GPTApi;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,6 +12,8 @@ import java.net.URL;
 
 
 public class GPTApi {
+
+    // Returns String JSON Response if successful, string "NULL" If an HTTP error occurs.
     public static String gptResponse(String prompt) {
         String url = "https://api.openai.com/v1/completions";
         String key = "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";
@@ -32,20 +34,25 @@ public class GPTApi {
             writer.flush();
             writer.close();
 
+            if(connection_obj.getResponseCode() ==HttpURLConnection.HTTP_OK) {
+                // Response from ChatGPT
+                BufferedReader br = new BufferedReader(new InputStreamReader(connection_obj.getInputStream()));
+                String line;
 
-            // Response from ChatGPT
-            BufferedReader br = new BufferedReader(new InputStreamReader(connection_obj.getInputStream()));
-            String line;
+                StringBuffer response = new StringBuffer();
 
-            StringBuffer response = new StringBuffer();
+                while ((line = br.readLine()) != null) {
+                    response.append(line);
+                }
+                br.close();
 
-            while ((line = br.readLine()) != null) {
-                response.append(line);
-            }
-            br.close();
+                // OUTPUT: Return the JSON Response
+                return (response.toString());
 
-            // Return the JSON Response
-            return (response.toString());
+            } else{
+                    System.out.println("Error: HTTP Response Code " + connection_obj.getResponseCode());
+                    return "NULL"; // return error response NULL
+                }
 
 
         } catch (IOException e) {

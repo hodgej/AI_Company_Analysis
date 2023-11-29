@@ -1,6 +1,6 @@
-package src.JackHodge.app;
+package com.JackHodge.app;
 
-import src.JackHodge.GPTApi.GPTApi;
+import com.JackHodge.GPTApi.GPTApi;
 
 public class main {
     // CHANGE METHOD NAME TO SOMETHING OTHER THAN MAIN
@@ -13,6 +13,7 @@ public class main {
         // AI Model
         // GUI Output system
 
+        // GPT API Test
         System.out.println(GPTApi.gptResponse("Hello, how are you?"));
 
     }
