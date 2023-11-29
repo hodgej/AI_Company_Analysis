@@ -1,4 +1,4 @@
-package com.JackHodge.GPTApi;
+package src.JackHodge.GPTApi;
 
 import java.io.BufferedReader;
 import java.io.IOException;

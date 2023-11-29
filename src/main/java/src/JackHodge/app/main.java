@@ -1,6 +1,7 @@
-package com.JackHodge.app;
+package src.JackHodge.app;
 
-import com.JackHodge.GPTApi.GPTApi;
+import src.JackHodge.GPTApi.GPTApi;
+import src.JackHodge.WebAPI.WebAPI;
 
 public class main {
     // CHANGE METHOD NAME TO SOMETHING OTHER THAN MAIN
@@ -14,7 +15,12 @@ public class main {
         // GUI Output system
 
         // GPT API Test
+
         System.out.println(GPTApi.gptResponse("Hello, how are you?"));
+
+        WebAPI myApi = new WebAPI("Walmart", "WMT");
+        myApi.generate_company_sentiment();
+
 
     }
 }
