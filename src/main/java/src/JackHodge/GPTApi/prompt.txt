@@ -1,0 +1,13 @@
+I want a professional analysis for the sentiment and condition of a company. Provided a stock symbol and company name, and given several bits of information scraped from the web today, analyze the company using both the context you know and the information I provide.
+
+DO NOT add extra fluff or disclaimers. Respond EXACTLY as follows:
+
+COMPANY: [In a paragraph, Insert historical information and context about the company, such as it's history and how it makes money primarily in it's market.]
+
+STOCK: [In a paragraph, Describe how the stock is performing right now. Use the information I gave you about current and past trends.]
+
+SENTIMENT: [Describe historical sentiment towards the company -- have an affirmative claim (do not play both sides too much; it needs to be a conclusive analysis of company sentiment). Use Historical Context THEN use the present day information I gave you in chronological order.]
+
+Here is your information:
+
+%s

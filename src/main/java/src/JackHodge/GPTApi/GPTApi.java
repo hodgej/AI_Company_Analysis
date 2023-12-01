@@ -1,10 +1,16 @@
 package src.JackHodge.GPTApi;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 
 // Key: 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
@@ -14,11 +20,15 @@ public class GPTApi {
     static String promptFilePath = "src/main/java/src/JackHodge/GPTApi/prompt.txt";
 
     public static String getPrompt() throws IOException {
-        BufferedReader promptFile = new BufferedReader(new FileReader(promptFilePath));
-        return promptFile.readLine();
+        return Files.lines(Paths.get(promptFilePath))
+                .collect(Collectors.joining(System.lineSeparator()));
+    }
+
+    public static String generatePrompt(String context) throws IOException {
+        return String.format(getPrompt(), context);
     }
     // Returns String JSON Response if successful, string "NULL" If an HTTP error occurs.
-    public static String gptResponse(String prompt) {
+    public static String gptResponse(String contextInformation) {
         String url = "https://api.openai.com/v1/completions";
         String key = "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";
         String gpt_model = "gpt-3.5-turbo";
@@ -30,7 +40,10 @@ public class GPTApi {
 
             connection_obj.setRequestProperty("Authorization", "Bearer " + key);
             connection_obj.setRequestProperty("Content-Type", "application/json");
-            String body = "{\"model\": \"" + gpt_model + "\", \"messages\": [{\"role\": \"user\", \"content\": \"" + prompt + "\"}]}";
+
+            String completedPrompt = generatePrompt(contextInformation);
+            System.out.println("------\n Sending Prompt: \n" + completedPrompt + "\n -------");
+            String body = "{\"model\": \"" + gpt_model + "\", \"messages\": [{\"role\": \"user\", \"content\": \"" + completedPrompt + "\"}]}";
 
             connection_obj.setDoOutput(true);
             OutputStreamWriter writer = new OutputStreamWriter(connection_obj.getOutputStream());

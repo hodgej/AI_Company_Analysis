@@ -17,12 +17,9 @@ public class main {
 
         WebAPI myApi = new WebAPI(companyData[0], companyData[1]);
         HashMap<String, String> sentimentMap = myApi.generate_company_sentiment();
-        String temp_paragraphForm = GPTApi.convertSentimentToString(sentimentMap);
-        // Method to convert company sentiment into paragraph form.
-        System.out.println(temp_paragraphForm);
-        System.out.println(GPTApi.gptResponse("Hello, how are you?"));
+        String paragraphForm = GPTApi.convertSentimentToString(sentimentMap);
+        System.out.println(GPTApi.gptResponse(paragraphForm));
 
-        System.out.println(GPTApi.getPrompt());
     }
 }
 
