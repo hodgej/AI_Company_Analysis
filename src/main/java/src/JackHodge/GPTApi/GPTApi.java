@@ -1,18 +1,22 @@
 package src.JackHodge.GPTApi;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 
 // Key: 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
 
 
 public class GPTApi {
+    static String promptFilePath = "src/main/java/src/JackHodge/GPTApi/prompt.txt";
 
+    public static String getPrompt() throws IOException {
+        BufferedReader promptFile = new BufferedReader(new FileReader(promptFilePath));
+        return promptFile.readLine();
+    }
     // Returns String JSON Response if successful, string "NULL" If an HTTP error occurs.
     public static String gptResponse(String prompt) {
         String url = "https://api.openai.com/v1/completions";
@@ -50,7 +54,7 @@ public class GPTApi {
                 return (response.toString());
 
             } else{
-                    System.out.println("Error: HTTP Response Code " + connection_obj.getResponseCode());
+                    System.out.println("GPT Error: HTTP Response Code " + connection_obj.getResponseCode());
                     return "NULL"; // return error response NULL
                 }
 
@@ -60,6 +64,15 @@ public class GPTApi {
         }
 
 
+    }
+
+    public static String convertSentimentToString(HashMap<String, String> sentimentMap){
+        String paragraph = new String();
+        System.out.println("Converting Sentiment HashMap to String in paragraph for AI");
+        for(Map.Entry<String, String> item : sentimentMap.entrySet()){
+            paragraph += "The " + item.getValue() + " is " + item.getKey() + ". ";
+        }
+        return paragraph;
     }
 
 }

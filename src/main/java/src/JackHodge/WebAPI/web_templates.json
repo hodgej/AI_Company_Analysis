@@ -1,11 +1,32 @@
 {
-  "finance.yahoo.com":{
+  "https://finance.yahoo.com":{
     "data_insertion_type": 1,
     "url_template": "/quote/%s",
     "elements": {
-      "/html/body/div[1]/div/div/div[1]/div/div[3]/div[1]/div/div[1]/div/div/div/div[2]/div[2]/table/tbody/tr[1]/td[2]": "Market Cap"
+      "/html/body/div[1]/div/div/div[1]/div/div[3]/div[1]/div/div[1]/div/div/div/div[2]/div[2]/table/tbody/tr[1]/td[2]": "Market Cap",
+      "/html/body/div[1]/div/div/div[1]/div/div[3]/div[1]/div/div[1]/div/div/div/div[2]/div[1]/table/tbody/tr[7]/td[2]": "Volume",
+      "/html/body/div[1]/div/div/div[1]/div/div[3]/div[1]/div/div[1]/div/div/div/div[2]/div[1]/table/tbody/tr[8]/td[2]":"Average Volume",
+      "/html/body/div[1]/div/div/div[1]/div/div[2]/div/div/div[6]/div/div/div/div[3]/div[1]/div/fin-streamer[1]": "Stock Price",
+      "/html/body/div[1]/div/div/div[1]/div/div[2]/div/div/div[6]/div/div/div/div[3]/div[1]/div/fin-streamer[3]/span": "Today's Price Change"
+
+
+    }
+  },
+  "https://www.google.com/search?sca_esv=586991778&q=":{
+    "data_insertion_type": 0,
+    "url_template": "%s+news&tbm=nws&source=lnms&sa=X&ved=2ahUKEwi67eCMye6CAxVImWoFHbVpAWYQ0pQJegQIFhAB&biw=1156&bih=520&dpr=1.65",
+    "elements": {
+      "/html/body/div[5]/div/div[11]/div/div[2]/div[2]/div/div/div/div/div[1]/div/div/a/div/div[2]/div[2]": "First News Story about Company to appear upon a google search"
+
+    }
+  },
+  "https://www.google.com/search?q=": {
+    "data_insertion_type": 0,
+    "url_template": "%s+controversy&sca_esv=586991778&biw=1156&bih=520&tbm=nws&ei=W_5pZcGbLMHCqtsP856CqAk&ved=0ahUKEwiBtcyrye6CAxVBoWoFHXOPAJUQ4dUDCA0&uact=5&oq=walmart+controversy&gs_lp=Egxnd3Mtd2l6LW5ld3MiE3dhbG1hcnQgY29udHJvdmVyc3kyCxAAGIAEGIoFGJECMgUQABiABDIGEAAYFhgeMgYQABgWGB4yBhAAGBYYHjIGEAAYFhgeMgYQABgWGB4yBhAAGBYYHjIGEAAYFhgeMggQABgWGB4YD0j3DlDxBFj8DXABeACQAQGYAccBoAG-CqoBAzYuNrgBA8gBAPgBAcICCBAAGIAEGLEDwgILEAAYgAQYsQMYgwHCAgoQABiABBiKBRhDwgIREAAYgAQYigUYkQIYsQMYgwHCAg4QABiABBiKBRixAxiDAcICDRAAGIAEGLEDGIMBGArCAg4QABiABBiKBRiRAhixA8ICCBAAGBYYHhgKiAYB&sclient=gws-wiz-news",
+    "elements" : {
+    "/html/body/div[5]/div/div[11]/div/div[2]/div[2]/div/div/div/div/div[1]/div/div/a/div/div[2]/div[2]": "First Google Result upon search for controversy about company"
     }
   }
 
-
 }
+
