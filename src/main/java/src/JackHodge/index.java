@@ -18,6 +18,7 @@ public class index {
         analyzeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                analyzeButton.setText("Loading...");
                 String cName = companyName.getText();
                 String cSymbol = companySymbol.getText();
                 String[] data = new String[]{cName, cSymbol};
@@ -36,7 +37,7 @@ public class index {
     }
 
     public static void main(String[] args) {
-        JFrame frame = new JFrame("index");
+        JFrame frame = new JFrame("Company Analysis");
         frame.setContentPane(new index().jp);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
