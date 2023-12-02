@@ -12,16 +12,16 @@ public class JHodgeCompanyAnalysis {
         System.out.println("Hello world");
         System.out.println("Home of the software which gets user input, scrapes the web, " +
                            "and feeds that web data into a pretrained AI Model");
-
+        System.out.println(GPTApi.generatePrompt("TESTING"));
         //String[] companyData = inputManager.companyInput();
 
         WebAPI myApi = new WebAPI(companyData[0], companyData[1]);
         HashMap<String, String> sentimentMap = myApi.generate_company_sentiment();
         String paragraphForm = GPTApi.convertSentimentToString(sentimentMap);
+        String GPTResponse = GPTApi.gptResponse(paragraphForm);
+        return GPTResponse;
 
-        return paragraphForm;
 
-        //System.out.println(GPTApi.gptResponse(paragraphForm));
 
 
     }

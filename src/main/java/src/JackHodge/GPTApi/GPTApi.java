@@ -29,48 +29,49 @@ public class GPTApi {
     }
     // Returns String JSON Response if successful, string "NULL" If an HTTP error occurs.
     public static String gptResponse(String contextInformation) {
-        String url = "https://api.openai.com/v1/completions";
+        // API Metadata
+        String url = "https://api.openai.com/v1/chat/completions";
         String key = "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";
         String gpt_model = "gpt-3.5-turbo";
 
         try {
-            URL url_obj = new URL(url);
-            HttpURLConnection connection_obj = (HttpURLConnection) url_obj.openConnection();
-            connection_obj.setRequestMethod("POST");
+            // Establish Connection
+            URL obj = new URL(url);
+            HttpURLConnection connection = (HttpURLConnection) obj.openConnection();
+            connection.setRequestMethod("POST");
+            connection.setRequestProperty("Authorization", "Bearer " + key);
+            connection.setRequestProperty("Content-Type", "application/json");
 
-            connection_obj.setRequestProperty("Authorization", "Bearer " + key);
-            connection_obj.setRequestProperty("Content-Type", "application/json");
-
-            String completedPrompt = generatePrompt(contextInformation);
-            System.out.println("------\n Sending Prompt: \n" + completedPrompt + "\n -------");
-            String body = "{\"model\": \"" + gpt_model + "\", \"messages\": [{\"role\": \"user\", \"content\": \"" + completedPrompt + "\"}]}";
-
-            connection_obj.setDoOutput(true);
-            OutputStreamWriter writer = new OutputStreamWriter(connection_obj.getOutputStream());
+            // Body
+            String completePrompt = generatePrompt(contextInformation);
+            System.out.println("\n\n" + completePrompt);
+            String body = "{\"model\": \"" + gpt_model + "\", \"messages\": [{\"role\": \"user\", \"content\": \"" +
+                           completePrompt + "\"}]}";
+            connection.setDoOutput(true);
+            OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
             writer.write(body);
             writer.flush();
             writer.close();
 
-            if(connection_obj.getResponseCode() ==HttpURLConnection.HTTP_OK) {
-                // Response from ChatGPT
-                BufferedReader br = new BufferedReader(new InputStreamReader(connection_obj.getInputStream()));
-                String line;
+            // Response
+            BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            String line;
 
-                StringBuffer response = new StringBuffer();
+            StringBuffer response = new StringBuffer();
 
-                while ((line = br.readLine()) != null) {
-                    response.append(line);
-                }
-                br.close();
+            while ((line = br.readLine()) != null) {
+                response.append(line);
+            }
+            br.close();
 
-                // OUTPUT: Return the JSON Response
-                return (response.toString());
+            System.out.println("GPT Response Complete.");
+            // Clean Output
 
-            } else{
-                    System.out.println("GPT Error: HTTP Response Code " + connection_obj.getResponseCode());
-                    return "NULL"; // return error response NULL
-                }
-
+            String responseString = response.toString();
+            System.out.println(responseString);
+            int startIndex = responseString.indexOf("content")+1;
+            int endIndex = responseString.indexOf("}", startIndex);
+            return responseString.substring(startIndex, endIndex);
 
         } catch (IOException e) {
             throw new RuntimeException(e);
