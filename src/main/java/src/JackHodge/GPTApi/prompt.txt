@@ -1,1 +1,1 @@
-Analyze this: %s
+Analyze this abt a company using historical context [do not use breaklines]: %s

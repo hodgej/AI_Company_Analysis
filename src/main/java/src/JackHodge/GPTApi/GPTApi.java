@@ -69,7 +69,7 @@ public class GPTApi {
 
             String responseString = response.toString();
             System.out.println(responseString);
-            int startIndex = responseString.indexOf("content")+1;
+            int startIndex = responseString.indexOf("content")+10;
             int endIndex = responseString.indexOf("}", startIndex);
             return responseString.substring(startIndex, endIndex);
 

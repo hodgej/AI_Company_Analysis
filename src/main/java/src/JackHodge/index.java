@@ -13,11 +13,13 @@ public class index {
     private JTextField companyName;
     private JTextField companySymbol;
     private JButton analyzeButton;
+    private JLabel title;
 
     public index() {
         analyzeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                setLoading();
                 analyzeButton.setText("Loading...");
                 String cName = companyName.getText();
                 String cSymbol = companySymbol.getText();
@@ -32,6 +34,10 @@ public class index {
                 results r = new results(returnedData);
 
 
+            }
+
+            public void setLoading(){
+                title.setText("Loading.");
             }
         });
     }
