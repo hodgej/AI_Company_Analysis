@@ -15,19 +15,25 @@ import java.util.stream.Collectors;
 
 // Key: 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
 
-
+/*
+GPTApi: Interface with ChatGPT API.
+ */
 public class GPTApi {
+    //Filepath of the prompt: default prompt.txt
     static String promptFilePath = "src/main/java/src/JackHodge/GPTApi/prompt.txt";
 
+    // Returns the prompt is string form
     public static String getPrompt() throws IOException {
         return Files.lines(Paths.get(promptFilePath))
                 .collect(Collectors.joining(System.lineSeparator()));
     }
 
+    // Generate a prompt based on provided context from a String Sentiment.
     public static String generatePrompt(String context) throws IOException {
         return String.format(getPrompt(), context);
     }
-    // Returns String JSON Response if successful, string "NULL" If an HTTP error occurs.
+
+    // Get an AI Analysis based on context information.
     public static String gptResponse(String contextInformation) {
         // API Metadata
         String url = "https://api.openai.com/v1/chat/completions";
@@ -65,8 +71,8 @@ public class GPTApi {
             br.close();
 
             System.out.println("GPT Response Complete.");
-            // Clean Output
 
+            // Clean Output [ get content key value ]
             String responseString = response.toString();
             System.out.println(responseString);
             int startIndex = responseString.indexOf("content")+10;
@@ -80,6 +86,8 @@ public class GPTApi {
 
     }
 
+    // Converts hashmap sentiment map to a readable String
+    // Phrases using [value] is a [key] format -- following the web_templates.json format.
     public static String convertSentimentToString(HashMap<String, String> sentimentMap){
         String paragraph = new String();
         System.out.println("Converting Sentiment HashMap to String in paragraph for AI");

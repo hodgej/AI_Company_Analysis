@@ -11,8 +11,24 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class WebAPI {
+/*
+WebAPI: Class for web scraping
+ */
 
+/*
+web_templates.json Documentation:
+
+Each URL we scrape gets an object
+ - Data insertion type : 1 if insert stock ticker, 0 if insert company name
+ - url_template: url in which the data from data insertion type is inserted (company name/stock sym)
+ - elements: all elements to be scraped (in full XPATH format)
+     - Each element is a key associated with context to the AI
+     - Thus the final format will be [element info] is [context for the ai]
+     - No limit on number of elements you can scrape here.
+
+ */
+public class WebAPI {
+    // Instanced with Company Details
     private String company_name;
     private String company_StockSymbol;
 
@@ -22,6 +38,7 @@ public class WebAPI {
         System.out.println("Initialized New WebAPI for " + company_name);
     }
 
+    // Scrapes the Web based on it's company and returns a sentiment hashmap.
     public HashMap<String, String> generate_company_sentiment() {
         // OUTPUT FORMAT: {Data extracted : AI Context (From the JSON File), ... }
         HashMap<String, String> sentimentMap = new HashMap<String, String>();
@@ -65,23 +82,19 @@ public class WebAPI {
 
                 // Map of all Elements : Context
                 HashMap<String, String> elementSet = (HashMap<String, String>) values.get("elements");
-                for(Map.Entry<String, String> element: elementSet.entrySet()){
+                for(Map.Entry<String, String> element: elementSet.entrySet()) {
                     String currentHTMLElement = element.getKey();
                     String AIContext = element.getValue();
-                    System.out.println("Getting " + AIContext);
+                    // Get Element based on XPATH
                     Elements gotElement = web_page.selectXpath(currentHTMLElement);
                     sentimentMap.put(gotElement.text(), AIContext);
                 }
-
-
             }
-
         } catch (IOException e){
             throw new RuntimeException(e);
         }
 
-
-
+        // Return the SentimentMap
         return sentimentMap;
     }
 }

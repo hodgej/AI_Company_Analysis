@@ -7,7 +7,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
+/*
+
+Main File: Contains the Main Method
+
+ */
+
+
 public class index {
+    // Index Page GUI Elements
     private JLabel item;
     private JPanel jp;
     private JTextField companyName;
@@ -15,6 +23,7 @@ public class index {
     private JButton analyzeButton;
     private JLabel title;
 
+    // GUI Class
     public index() {
         analyzeButton.addActionListener(new ActionListener() {
             @Override
@@ -25,6 +34,9 @@ public class index {
                 String cSymbol = companySymbol.getText();
                 String[] data = new String[]{cName, cSymbol};
                 String returnedData;
+
+                // RUN COMPANY ANALYSIS PACKAGE //
+
                 try {
                     returnedData = JHodgeCompanyAnalysis.companyAnalysis(data);
                 } catch (IOException ex) {
@@ -42,7 +54,9 @@ public class index {
         });
     }
 
+    // Main Method
     public static void main(String[] args) {
+        // Init Frame
         JFrame frame = new JFrame("Company Analysis");
         frame.setContentPane(new index().jp);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -6,18 +6,16 @@ import src.JackHodge.WebAPI.WebAPI;
 import java.io.IOException;
 import java.util.HashMap;
 
+// Main Class for Company Analysis Package
 public class JHodgeCompanyAnalysis {
-    // CHANGE METHOD NAME TO SOMETHING OTHER THAN MAIN
     public static String companyAnalysis(String[] companyData) throws IOException {
-        System.out.println("Hello world");
-        System.out.println("Home of the software which gets user input, scrapes the web, " +
-                           "and feeds that web data into a pretrained AI Model");
-        System.out.println(GPTApi.generatePrompt("TESTING"));
-        //String[] companyData = inputManager.companyInput();
-
+        // Init WebAPI For scraping
         WebAPI myApi = new WebAPI(companyData[0], companyData[1]);
+        // Return SentimentMap based on scraping
         HashMap<String, String> sentimentMap = myApi.generate_company_sentiment();
+        // Convert map to a string via GPTApi Static Method
         String paragraphForm = GPTApi.convertSentimentToString(sentimentMap);
+        // Return AI Response based on Paragraph form of sentiment
         String GPTResponse = GPTApi.gptResponse(paragraphForm);
         return GPTResponse;
 
