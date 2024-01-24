@@ -13,7 +13,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 
-// Key: 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
 
 /*
 GPTApi: Interface with ChatGPT API.
@@ -37,7 +36,7 @@ public class GPTApi {
     public static String gptResponse(String contextInformation) {
         // API Metadata
         String url = "https://api.openai.com/v1/chat/completions";
-        String key = "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";
+        String key = "[ INSERT API KEY HERE ] ";
         String gpt_model = "gpt-3.5-turbo";
 
         try {
